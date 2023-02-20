@@ -3,3 +3,5 @@ sklearn
 streamlit
 numpy
 pandas
+revChatGPT
+pickle
