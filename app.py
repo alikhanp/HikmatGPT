@@ -78,7 +78,7 @@ if access_token:
 else:
   st.header("Starting Instructions")
   st.subheader("Step 1: Log in to ChatGPT")
-  st.markdown("Make sure you are Logged in to ChatGPT on [chat.openai.com/](chat.openai.com/)")
+  st.markdown("Make sure you are Logged in to ChatGPT on [chat.openai.com/](https://chat.openai.com/chat)")
   st.image('step1.png')
   st.subheader("Step 2: Copy your Access Token")
   st.markdown("[Click here to find your ChatGPT Access Token](https://chat.openai.com/api/auth/session)")
