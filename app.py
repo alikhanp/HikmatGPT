@@ -67,7 +67,7 @@ if access_token:
   chatbot = Chatbot(config={ #Login to ChatGPT
     "access_token": access_token
   })
-  st.title('SahibGPT') #Set title, input, and caption for Steamlit
+  st.title('HikmatGPT') #Set title, input, and caption for Steamlit
   search_string = st.text_input("What's your question?")
   st.caption("Press Enter first to process text")
   if search_string: #Statement to check first if user pressed enter in textbox to process the question before the button shows
@@ -75,6 +75,18 @@ if access_token:
     if ask.button('Ask'):
       ask.empty()
       st.write(run())
+else:
+  st.header("Starting Instructions")
+  st.subheader("Step 1: Log in to ChatGPT")
+  st.markdown("Make sure you are Logged in to ChatGPT on [chat.openai.com/](chat.openai.com/)")
+  st.image('step1.png')
+  st.subheader("Step 2: Copy your Access Token")
+  st.markdown("[Click here to find your ChatGPT Access Token](https://chat.openai.com/api/auth/session)")
+  st.image('step2.png')
+  st.markdown("Your Access token is in the quotations after 'accessToken':")
+  st.subheader("Step 3: Paste your Access Token")
+  st.image('step3.png')
+  st.markdown("Paste it into the login sidebar and press enter")
 
 #with st.expander("**Login**", expanded=True):
 #  access_token = st.text_input("Enter your Access Token?")
