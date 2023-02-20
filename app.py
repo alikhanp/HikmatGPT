@@ -87,7 +87,3 @@ else:
   st.subheader("Step 3: Paste your Access Token")
   st.image('step3.PNG')
   st.markdown("Paste it into the login sidebar and press enter")
-
-#with st.expander("**Login**", expanded=True):
-#  access_token = st.text_input("Enter your Access Token?")
-#  st.caption("Close expander when done")
