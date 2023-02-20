@@ -82,10 +82,10 @@ else:
   st.image('step1.png')
   st.subheader("Step 2: Copy your Access Token")
   st.markdown("[Click here to find your ChatGPT Access Token](https://chat.openai.com/api/auth/session)")
-  st.image('step2.png')
+  st.image('step2.PNG')
   st.markdown("Your Access token is in the quotations after 'accessToken':")
   st.subheader("Step 3: Paste your Access Token")
-  st.image('step3.png')
+  st.image('step3.PNG')
   st.markdown("Paste it into the login sidebar and press enter")
 
 #with st.expander("**Login**", expanded=True):
