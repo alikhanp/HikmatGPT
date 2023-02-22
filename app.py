@@ -6,14 +6,27 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from revChatGPT.V1 import Chatbot
 
-model = SentenceTransformer('msmarco-distilbert-base-v4') #Stated to later get vector of question
+@st.cache_resource
+def load_model():
+  model = SentenceTransformer('msmarco-distilbert-base-v4') #Stated to later get vector of question
+  return model
 
-df = pd.read_excel('test for test.xlsx') #Reads excel to get text to output
-paragraph = df.iloc[:, 0]
-book = df.iloc[:, 1]
+@st.cache_resource
+def load_excel_data():
+  df = pd.read_excel('test for test.xlsx') #Reads excel to get text to output
+  paragraph = df.iloc[:, 0]
+  book = df.iloc[:, 1]
+  return df, paragraph, book
 
-infile = open('mydata.pkl', 'rb') #Gets text's vector to calcualte with question's vector
-embeddings_distilbert = pickle.load(infile)
+@st.cache_resource
+def load_vector_data():
+  infile = open('mydata.pkl', 'rb') #Gets text's vector to calcualte with question's vector
+  embeddings_distilbert = pickle.load(infile)
+  return infile, embeddings_distilbert
+
+model = load_model()
+df, paragraph, book = load_excel_data()
+infile, embeddings_distilbert = load_vector_data()
 
 def find_similar(vector_representation, all_representations, k=1): #Calculation function
     similarity_matrix = cosine_similarity(vector_representation, all_representations)
