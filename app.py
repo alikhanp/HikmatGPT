@@ -48,26 +48,26 @@ def run(): #Function that runs when button pressed.
   for index in distilbert_similar_indexes: #Loop that appends the top 10 related text and book name vectors
     output_data.append(paragraph[index])
     book_data.append(book[index])
-  
+'''
   prompt = str(output_data[:6]) + " Read and take in these passages, only using their contents connect to the question: " + '"' + search_string + '".'
   resp = ""
-#  for data in chatbot.ask(
-#    prompt
-#  ):
-#    resp = data["message"] #ChatGPT's response to prompt
+  for data in chatbot.ask(
+    prompt
+  ):
+    resp = data["message"] #ChatGPT's response to prompt
 
-#  st.info(resp) #Display ChatGPT's response
-#  if (resp == ""):
-#    st.caption("**There is an issue with your access token. Try entering it again.**")
-#  elif ((resp.count(" ") > 1) and (resp.count(" ") < 50)) or (resp[-1] == "?"):
-#    st.caption("**If the question is not answered, try rewording it or changing/adding subjects.**")
-    
+  st.info(resp) #Display ChatGPT's response
+  if (resp == ""):
+    st.caption("**There is an issue with your access token. Try entering it again.**")
+  elif ((resp.count(" ") > 1) and (resp.count(" ") < 50)) or (resp[-1] == "?"):
+    st.caption("**If the question is not answered, try rewording it or changing/adding subjects.**")
+'''
   
   st.subheader("References") #Display all 10 text references with book name and relevance
   for i in range(10):
     st.markdown(f":red[{output_data[i]}]")
     st.write(f"**Reference:** {book_data[i]}. **Relevance:** {str(round(rel[0][distilbert_similar_indexes[i]]*100, 2))}%")
-
+'''
 with st.sidebar:
   st.header("Login")
   access_token = st.text_input("**Enter your ChatGPT Access Token:**")
@@ -80,6 +80,7 @@ if access_token:
   chatbot = Chatbot(config={ #Login to ChatGPT
     "access_token": access_token
   })
+'''
   st.title('HikmatGPT') #Set title, input, and caption for Steamlit
   search_string = st.text_input("What's your question?")
   st.caption("Press Enter first to process text")
@@ -88,6 +89,7 @@ if access_token:
     if ask.button('Ask'):
       ask.empty()
       st.write(run())
+'''
 else:
   st.header("Starting Instructions")
   st.subheader("Step 1: Log in to ChatGPT")
@@ -100,3 +102,4 @@ else:
   st.subheader("Step 3: Paste your Access Token")
   st.image('step3.PNG')
   st.markdown("Paste it into the login sidebar and press enter")
+'''
