@@ -51,16 +51,16 @@ def run(): #Function that runs when button pressed.
   
   prompt = str(output_data[:6]) + " Read and take in these passages, only using their contents connect to the question: " + '"' + search_string + '".'
   resp = ""
-  for data in chatbot.ask(
-    prompt
-  ):
-    resp = data["message"] #ChatGPT's response to prompt
+#  for data in chatbot.ask(
+#    prompt
+#  ):
+#    resp = data["message"] #ChatGPT's response to prompt
 
-  st.info(resp) #Display ChatGPT's response
-  if (resp == ""):
-    st.caption("**There is an issue with your access token. Try entering it again.**")
-  elif ((resp.count(" ") > 1) and (resp.count(" ") < 50)) or (resp[-1] == "?"):
-    st.caption("**If the question is not answered, try rewording it or changing/adding subjects.**")
+#  st.info(resp) #Display ChatGPT's response
+#  if (resp == ""):
+#    st.caption("**There is an issue with your access token. Try entering it again.**")
+#  elif ((resp.count(" ") > 1) and (resp.count(" ") < 50)) or (resp[-1] == "?"):
+#    st.caption("**If the question is not answered, try rewording it or changing/adding subjects.**")
     
   
   st.subheader("References") #Display all 10 text references with book name and relevance
@@ -78,8 +78,7 @@ if access_token:
   access_token = access_token.replace("'","")
   access_token = access_token.replace(" ","")
   chatbot = Chatbot(config={ #Login to ChatGPT
-    #"access_token": access_token
-    "session_token": access_token
+    "access_token": access_token
   })
   st.title('HikmatGPT') #Set title, input, and caption for Steamlit
   search_string = st.text_input("What's your question?")
