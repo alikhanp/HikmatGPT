@@ -78,7 +78,8 @@ if access_token:
   access_token = access_token.replace("'","")
   access_token = access_token.replace(" ","")
   chatbot = Chatbot(config={ #Login to ChatGPT
-    "access_token": access_token
+    #"access_token": access_token
+    "session_token": access_token
   })
   st.title('HikmatGPT') #Set title, input, and caption for Steamlit
   search_string = st.text_input("What's your question?")
