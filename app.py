@@ -49,7 +49,7 @@ def run(): #Function that runs when button pressed.
     output_data.append(paragraph[index])
     book_data.append(book[index])
   
-  prompt = str(output_data[:10]) + " Read and take in these passages, only using their contents connect to the question: " + '"' + search_string + '".'
+  prompt = str(output_data[:6]) + " Read and take in these passages, only using their contents connect to the question: " + '"' + search_string + '".'
   resp = ""
   for data in chatbot.ask(
     prompt
