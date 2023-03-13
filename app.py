@@ -13,14 +13,14 @@ def load_model():
 
 @st.cache_resource
 def load_excel_data():
-  df = pd.read_excel('paragraphs_test_v2.xlsx') #Reads excel to get text to output
+  df = pd.read_excel('all_paragraphs_v1_final.xlsx') #Reads excel to get text to output
   paragraph = df.iloc[:, 0]
   book = df.iloc[:, 1]
   return df, paragraph, book
 
 @st.cache_resource
 def load_vector_data():
-  infile = open('mydata_v2.pkl', 'rb') #Gets text's vector to calcualte with question's vector
+  infile = open('all_paragraphs_vector_v1.pkl', 'rb') #Gets text's vector to calcualte with question's vector
   embeddings_distilbert = pickle.load(infile)
   return infile, embeddings_distilbert
 
