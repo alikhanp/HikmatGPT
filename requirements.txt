@@ -3,6 +3,5 @@ scikit-learn
 streamlit
 numpy
 pandas
-revChatGPT
 openpyxl
 openai
