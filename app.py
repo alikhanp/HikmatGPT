@@ -6,7 +6,7 @@ import openai
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-openai.api_key = API_KEY
+openai.api_key = st.secrets["API_KEY"]
 
 @st.cache_resource
 def load_model():
