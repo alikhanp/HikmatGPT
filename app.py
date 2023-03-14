@@ -2,9 +2,11 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+import openai
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-from revChatGPT.V1 import Chatbot
+
+openai.api_key = API_KEY
 
 @st.cache_resource
 def load_model():
@@ -49,54 +51,24 @@ def run(): #Function that runs when button pressed.
     output_data.append(paragraph[index])
     book_data.append(book[index])
   
-  prompt = " Read and take in these passages, only using their contents connect to the question: " + '"' + search_string + '". ' + str(output_data[:10])
-  resp = ""
-  for data in chatbot.ask(
-    prompt
-  ):
-    resp = data["message"] #ChatGPT's response to prompt
-
-  st.info(resp) #Display ChatGPT's response
-  if (resp == ""):
-    st.caption("**There is an issue with your access token. Try entering it again.**")
-  elif ((resp.count(" ") > 1) and (resp.count(" ") < 50)) or (resp[-1] == "?"):
-    st.caption("**If the question is not answered, try rewording it or changing/adding subjects.**")
+  completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+      {"role": "user", "content": "Read the following passages: " + str(output_data[:10])},
+      {"role": "user", "content": "Write an answer to the question " + '"' + search_string + '"' + " from using the passages above"}
+    ]
+  )
+  output = completion['choices'][0]['message']['content'].replace("\n", "\n")
+  st.info(output) #Display ChatGPT's response
     
-  
   st.subheader("References") #Display all 10 text references with book name and relevance
   for i in range(10):
     st.markdown(f":red[{output_data[i]}]")
     st.write(f"**Reference:** {book_data[i]}. **Relevance:** {str(round(rel[0][distilbert_similar_indexes[i]]*100, 2))}%")
 
-with st.sidebar:
-  st.header("Login")
-  access_token = st.text_input("**Enter your ChatGPT Access Token:**")
-  st.caption("[Click here to find your ChatGPT Access Token](https://chat.openai.com/api/auth/session)")
-  st.caption("Close sidebar when done")
-if access_token:
-  access_token = access_token.replace('"','')
-  access_token = access_token.replace("'","")
-  access_token = access_token.replace(" ","")
-  chatbot = Chatbot(config={ #Login to ChatGPT
-    "access_token": access_token
-  })
-  st.title('HikmatGPT') #Set title, input, and caption for Steamlit
-  search_string = st.text_input("What's your question?")
-  st.caption("Press Enter first to process text")
-  if search_string: #Statement to check first if user pressed enter in textbox to process the question before the button shows
-    ask = st.empty()
-    if ask.button('Ask'):
-      ask.empty()
-      st.write(run())
-else:
-  st.header("Starting Instructions")
-  st.subheader("Step 1: Log in to ChatGPT")
-  st.markdown("Make sure you are Logged in to ChatGPT on [chat.openai.com/](https://chat.openai.com/chat)")
-  st.image('step1.png')
-  st.subheader("Step 2: Copy your Access Token")
-  st.markdown("[Click here to find your ChatGPT Access Token](https://chat.openai.com/api/auth/session)")
-  st.image('step2.PNG')
-  st.markdown("Your Access token is in the quotations after 'accessToken':")
-  st.subheader("Step 3: Paste your Access Token")
-  st.image('step3.PNG')
-  st.markdown("Paste it into the login sidebar and press enter")
+st.title('HikmatGPT') #Set title, input, and caption for Steamlit
+form = st.form("my_form")
+search_string = form.text_input("What's your question?")
+submitted = form.form_submit_button("Ask")
+if submitted:
+  st.write(run())
