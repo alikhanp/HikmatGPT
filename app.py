@@ -68,7 +68,7 @@ def run(): #Function that runs when button pressed.
 
 st.title('HikmatGPT') #Set title, input, and caption for Steamlit
 form = st.form("my_form")
-search_string = form.text_input("What's your question?")
+search_string = form.text_area("What's your question?")
 submitted = form.form_submit_button("Ask")
 if submitted:
   st.write(run())
