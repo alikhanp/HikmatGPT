@@ -51,7 +51,7 @@ def run(): #Function that runs when button pressed.
     output_data.append(paragraph[index])
     book_data.append(book[index])
   
-  completion = openai.ChatCompletion.create(
+  completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
       {"role": "user", "content": "Read the following passages: " + str(output_data[:10])},
