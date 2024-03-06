@@ -60,7 +60,7 @@ def run(): #Function that runs when button pressed.
       {"role": "user", "content": "Write an answer to the question " + '"' + search_string + '"' + " from using the passages above"}
     ]
   )
-  output = completion.choices[0].message
+  output = completion.choices[0].message.content
   st.info(output) #Display ChatGPT's response
     
   st.subheader("References") #Display all 10 text references with book name and relevance
