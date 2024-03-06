@@ -2,11 +2,13 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
-import openai
+from openai import OpenAI
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-openai.api_key = st.secrets["API_KEY"]
+client = OpenAI(
+  api_key = st.secrets["API_KEY"]
+)
 
 @st.cache_resource
 def load_model():
